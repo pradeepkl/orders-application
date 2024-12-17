@@ -1,9 +1,9 @@
 package com.classpathio.ordersapplication.model;
 
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import lombok.*;
+
+import java.util.Set;
 
 @Builder
 @AllArgsConstructor
@@ -18,5 +18,8 @@ public class Role {
     private int id;
 
     private String role;
+
+    @ManyToMany(mappedBy = "roles")
+    private Set<User> users;
 
 }
