@@ -10,6 +10,7 @@ import java.util.Set;
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 @ToString
 @EqualsAndHashCode
+@Data
 public class Role {
 
     @Id

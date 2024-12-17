@@ -11,20 +11,22 @@ import java.util.Set;
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 @ToString(exclude = "password")
 @EqualsAndHashCode(of = {"username", "dob"})
+@Getter
+@Data
 public class User {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @Getter
+
     private long id;
 
-    @Setter @Getter
+    @Setter
     private String username;
 
-    @Setter @Getter @JsonIgnore
+    @Setter @JsonIgnore
     private String password;
 
-    @Setter @Getter
+    @Setter
     private LocalDate dob;
 
     @ManyToMany(fetch = FetchType.EAGER)
@@ -34,5 +36,8 @@ public class User {
             inverseJoinColumns = @JoinColumn(name = "role_id")
     )
     private Set<Role> roles;
+
+
+
 
 }

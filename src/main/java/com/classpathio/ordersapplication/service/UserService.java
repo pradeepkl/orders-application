@@ -21,7 +21,8 @@ public class UserService {
     }
 
     public void deleteUser(User user){
-        this.userRepository.findById(user.getId()).ifPresent(this::deleteUser);
+        this.userRepository.findById(user
+                .getId()).ifPresent(this::deleteUser);
     }
 
 }
