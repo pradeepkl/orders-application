@@ -8,16 +8,16 @@ import java.util.Set;
 
 @Builder
 @AllArgsConstructor
-@NoArgsConstructor(access = AccessLevel.PRIVATE)
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 @ToString(exclude = "password")
 @EqualsAndHashCode(of = {"username", "dob"})
 @Getter
-@Data
+@Entity
+@Table(name = "users")
 public class User {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-
     private long id;
 
     @Setter
@@ -29,15 +29,11 @@ public class User {
     @Setter
     private LocalDate dob;
 
-    @ManyToMany(fetch = FetchType.EAGER)
+    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JoinTable(
             name ="user_roles",
             joinColumns = @JoinColumn(name = "user_id"),
             inverseJoinColumns = @JoinColumn(name = "role_id")
     )
     private Set<Role> roles;
-
-
-
-
 }

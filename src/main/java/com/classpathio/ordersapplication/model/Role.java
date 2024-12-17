@@ -7,10 +7,10 @@ import java.util.Set;
 
 @Builder
 @AllArgsConstructor
-@NoArgsConstructor(access = AccessLevel.PRIVATE)
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 @ToString
 @EqualsAndHashCode
-@Data
+@Entity
 public class Role {
 
     @Id
@@ -22,5 +22,6 @@ public class Role {
 
     @ManyToMany(mappedBy = "roles")
     private Set<User> users;
+
 
 }
