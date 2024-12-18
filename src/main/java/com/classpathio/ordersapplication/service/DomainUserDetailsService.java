@@ -22,6 +22,7 @@ public class DomainUserDetailsService implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
+        System.out.println("User email :: " + email);
         return this.userRepository.findByEmail(email)
                 .map(DomainUserDetails::new)
                 .orElseThrow(() -> new UsernameNotFoundException("User not found"));

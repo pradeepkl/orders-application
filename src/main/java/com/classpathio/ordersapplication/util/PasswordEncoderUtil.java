@@ -22,7 +22,7 @@ public class PasswordEncoderUtil {
         System.out.println("Encoded password - 5: " + encodedPassword5);
 
         // Verify the password
-        System.out.println("Password verification - 1: " + passwordEncoder.matches(passwordInPlainText, encodedPassword1 + "."));
+        System.out.println("Password verification - 1: " + passwordEncoder.matches(passwordInPlainText, encodedPassword1));
         System.out.println("Password verification - 2: " + passwordEncoder.matches(passwordInPlainText, encodedPassword2));
         System.out.println("Password verification - 3: " + passwordEncoder.matches(passwordInPlainText, encodedPassword3));
         System.out.println("Password verification - 4: " + passwordEncoder.matches(passwordInPlainText, encodedPassword4));
