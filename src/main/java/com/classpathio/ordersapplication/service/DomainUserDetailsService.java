@@ -10,6 +10,12 @@ import org.springframework.stereotype.Service;
 
 @Service
 @RequiredArgsConstructor
+/**
+ * this is the class that will bridge the UserJpaRepository and the UserDetails
+ * UserDetailsService - Domain object of Spring Security
+ * User - Domain object of the application
+ */
+
 public class DomainUserDetailsService implements UserDetailsService {
 
     private final UserJpaRepository userRepository;
