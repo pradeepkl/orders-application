@@ -29,7 +29,7 @@ public class OrderRestController {
 
     @GetMapping("/{id}")
     public Order fetchOrderById(@PathVariable Long id){
-        return this.fetchOrderById(id);
+        return this.orderService.fetchOrderById(id);
     }
 
     @DeleteMapping("/{id}")
