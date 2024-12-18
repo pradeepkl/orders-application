@@ -23,6 +23,9 @@ public class User {
     @Setter
     private String username;
 
+    @Setter
+    private String email;
+
     @Setter @JsonIgnore
     private String password;
 

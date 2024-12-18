@@ -66,6 +66,7 @@ public class BootstrapAppData {
         IntStream.range(0,10).forEach(i -> {
             userRepository.save(com.classpathio.ordersapplication.model.User.builder()
                     .username(faker.name().username())
+                    .email(faker.internet().emailAddress())
                     .password(faker.internet().password())
                     .dob(faker.date().birthday().toInstant().atZone(ZoneId.systemDefault()).toLocalDate())
                     .roles(roles)

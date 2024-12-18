@@ -18,9 +18,11 @@ public class Role {
     @Getter
     private int id;
 
+    @Getter @Setter
     private String role;
 
     @ManyToMany(mappedBy = "roles")
+    @Getter @Setter
     private Set<User> users;
 
 
