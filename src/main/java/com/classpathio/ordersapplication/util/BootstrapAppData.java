@@ -1,6 +1,9 @@
 package com.classpathio.ordersapplication.util;
 
+import com.classpathio.ordersapplication.model.LineItem;
+import com.classpathio.ordersapplication.model.Order;
 import com.classpathio.ordersapplication.model.Role;
+import com.classpathio.ordersapplication.repository.OrderRepository;
 import com.classpathio.ordersapplication.repository.UserJpaRepository;
 import com.github.javafaker.Faker;
 import jakarta.transaction.Transactional;
@@ -19,6 +22,8 @@ import java.util.stream.IntStream;
 public class BootstrapAppData {
 
     private final UserJpaRepository userRepository;
+    private final OrderRepository orderRepository;
+
     private final Faker faker = new Faker();
 
     @EventListener(ApplicationReadyEvent.class)
@@ -27,6 +32,34 @@ public class BootstrapAppData {
         //insert users and roles upfront when the application starts
         Set<Role> roles = createRoles();
         createUsers(roles);
+    }
+
+    @EventListener(ApplicationReadyEvent.class)
+    @Transactional
+    public void bootstrapOrders(ApplicationReadyEvent applicationReadyEvent){
+        //insert orders upfront when the application starts
+        createOrders();
+    }
+
+    private void createOrders() {
+        IntStream.range(0,10).forEach(i -> {
+            Order order = Order.builder()
+                                .orderDate(faker.date().birthday().toInstant().atZone(ZoneId.systemDefault()).toLocalDate())
+                                .customerName(faker.name().fullName())
+                                .build();
+            IntStream.range(0, faker.number().numberBetween(2,3)).forEach(index -> {
+                order.addLineItem(LineItem.builder()
+                        .itemName(faker.commerce().productName())
+                        .quantity(faker.number().numberBetween(1,5))
+                        .price(faker.number().randomDouble(2, 10, 100))
+                        .build());
+                double totalOrderPrice = order.getLineItems().stream()
+                        .mapToDouble(lineItem -> lineItem.getPrice() * lineItem.getQuantity())
+                        .sum();
+                order.setTotalAmount(totalOrderPrice);
+                this.orderRepository.save(order);
+            });
+        });
     }
 
     private void createUsers(Set<Role> roles) {
